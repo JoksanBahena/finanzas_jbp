@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "551836360564",
+    "project_id": "finanzas-jbp",
+    "storage_bucket": "finanzas-jbp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551836360564:android:88195f01b3682c5f9ed621",
+        "android_client_info": {
+          "package_name": "com.example.act2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0b37n1r07bh_92gvkmpgjWZgykhggR2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

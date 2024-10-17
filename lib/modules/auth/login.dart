@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -21,7 +22,7 @@ class _LoginState extends State<Login> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/barcelona.png', width: 200, height: 200),
+            Image.asset('assets/capibara.png', width: 200, height: 200),
             const SizedBox(height: 16),
             TextFormField(
               decoration: const InputDecoration(
@@ -49,30 +50,47 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
-              height: 48,
               child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                  },
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.blue[700],
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: const Text('Iniciar sesión')),
+                onPressed: () => _login(),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white),
+                child: const Text("Iniciar sesión"),
+              ),
             ),
             const SizedBox(height: 16),
-            Center(
-                child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/send_email');
-                    },
-                    child: const Text('Recuperar contraseña')))
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/forgot-password');
+              },
+              child: InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/register'),
+                  child: const Text(
+                    "Registrarse",
+                    style: TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.blue,
+                    ),
+                  )),
+            ),
           ],
         ),
       ),
     ));
+  }
+
+  void _login() async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _email.text, password: _password.text);
+      print(credential);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
   }
 }
